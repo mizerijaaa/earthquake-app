@@ -67,17 +67,16 @@ public class EarthquakeServiceImpl implements EarthquakeService {
 
                     if (mag == null || time == null) continue;
 
-                    if (mag != null) {
-                        earthquakes.add(Earthquake.builder()
-                                .magnitude(mag)
-                                .place(place)
-                                .title(title)
-                                .magType(magType)
-                                .time(time)
-                                .latitude(latitude)
-                                .longitude(longitude)
-                                .build());
-                    }
+                    earthquakes.add(Earthquake.builder()
+                            .magnitude(mag)
+                            .place(place)
+                            .title(title)
+                            .magType(magType)
+                            .time(time)
+                            .latitude(latitude)
+                            .longitude(longitude)
+                            .build());
+
 
                 } catch (Exception e) {
                     log.warn("Skipping invalid earthquake entry: {}", e.getMessage());

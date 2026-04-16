@@ -38,6 +38,12 @@ function App() {
         setStatus("Record deleted.");
     };
 
+    const filterAbove2 = async () => {
+        const res = await axios.get(`${API}/filter/magnitude?minMag=2.0`);
+        setEarthquakes(res.data);
+        setStatus(`Showing ${res.data.length} earthquakes with magnitude > 2.0`);
+    };
+
     const formatTime = (ms) => new Date(ms).toLocaleString();
 
     useEffect(() => {
@@ -72,7 +78,7 @@ function App() {
 
     return (
         <div style={{ padding: 20, fontFamily: "sans-serif" }}>
-            <h1>🌍 Earthquake Tracker</h1>
+            <h1> Earthquake Tracker</h1>
 
             <button onClick={fetchFromUSGS} style={{ marginRight: 10 }}>
                 Fetch Latest Data
@@ -91,6 +97,7 @@ function App() {
                 />
                 <button onClick={filterByTime}>Apply</button>
                 <button onClick={loadAll} style={{ marginLeft: 5 }}>Clear</button>
+                <button onClick={filterAbove2} style={{ marginRight: 10 }}>Show Magnitude > 2.0</button>
             </div>
 
             <p>{status}</p>
