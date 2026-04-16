@@ -33,10 +33,20 @@ function App() {
 
     const filterByTime = async () => {
         if (!filterTime) return;
-        const timestamp = new Date(filterTime).getTime();
+
+        const now = new Date();
+        const [hours, minutes] = filterTime.split(":");
+
+        const selectedTime = new Date(now);
+        selectedTime.setHours(hours);
+        selectedTime.setMinutes(minutes);
+        selectedTime.setSeconds(0);
+
+        const timestamp = selectedTime.getTime();
+
         const res = await axios.get(`${API}/filter/time?timestamp=${timestamp}`);
         setEarthquakes(res.data);
-        setStatus(`${res.data.length} earthquakes after ${new Date(filterTime).toLocaleString()}.`);
+        setStatus(`${res.data.length} earthquakes after ${filterTime}.`);
     };
 
     const deleteEarthquake = async (id) => {
@@ -94,7 +104,7 @@ function App() {
                 <div style={styles.filterGroup}>
                     <label style={styles.label}>After</label>
                     <input
-                        type="datetime-local"
+                        type="time"
                         style={styles.input}
                         value={filterTime}
                         onChange={(e) => setFilterTime(e.target.value)}
