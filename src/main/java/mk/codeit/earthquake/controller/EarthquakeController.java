@@ -1,7 +1,7 @@
 package mk.codeit.earthquake.controller;
 
 import lombok.RequiredArgsConstructor;
-import mk.codeit.earthquake.model.Earthquake;
+import mk.codeit.earthquake.dto.EarthquakeDTO;
 import mk.codeit.earthquake.service.EarthquakeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,20 +23,33 @@ public class EarthquakeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Earthquake>> getAll() {
-        return ResponseEntity.ok(earthquakeService.getAll());
+    public ResponseEntity<List<EarthquakeDTO>> getAll() {
+        List<EarthquakeDTO> result = earthquakeService.getAll()
+                .stream()
+                .map(EarthquakeDTO::fromEntity)
+                .toList();
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/filter/magnitude")
-    public ResponseEntity<List<Earthquake>> getByMagnitude(
-            @RequestParam Double minMag) {
-        return ResponseEntity.ok(earthquakeService.getByMinMagnitude(minMag));
+    public ResponseEntity<List<EarthquakeDTO>> getByMagnitude(@RequestParam Double minMag) {
+        List<EarthquakeDTO> result = earthquakeService.getByMinMagnitude(minMag)
+                .stream()
+                .map(EarthquakeDTO::fromEntity)
+                .toList();
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/filter/time")
-    public ResponseEntity<List<Earthquake>> getAfterTime(
-            @RequestParam Long timestamp) {
-        return ResponseEntity.ok(earthquakeService.getAfterTime(timestamp));
+    public ResponseEntity<List<EarthquakeDTO>> getAfterTime(@RequestParam Long timestamp) {
+        List<EarthquakeDTO> result = earthquakeService.getAfterTime(timestamp)
+                .stream()
+                .map(EarthquakeDTO::fromEntity)
+                .toList();
+
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")

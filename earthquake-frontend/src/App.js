@@ -85,7 +85,7 @@ function App() {
             </div>
 
             <div style={styles.toolbar}>
-                <button style={styles.btnPrimary} onClick={fetchFromUSGS}>Fetch latest data</button>
+                <button style={styles.btn} onClick={fetchFromUSGS}>Fetch latest data</button>
                 <button style={styles.btn} onClick={loadAll}>Show all</button>
                 <button style={styles.btn} onClick={filterAbove2}>Magnitude above 2.0</button>
 
@@ -134,7 +134,7 @@ function App() {
                                     <span style={styles.magBadge(eq.magnitude)}>{eq.magnitude}</span>
                                 </td>
                                 <td style={styles.td}>{eq.magType}</td>
-                                <td style={styles.td}>{formatTime(eq.time)}</td>
+                                <td style={styles.td}>{eq.time}</td>
                                 <td style={styles.td}>
                                     <button style={styles.btnDanger} onClick={() => deleteEarthquake(eq.id)}>
                                         Delete
