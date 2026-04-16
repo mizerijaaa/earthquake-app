@@ -19,13 +19,10 @@ public class EarthquakeDTO {
     private String place;
     private Double magnitude;
     private String magType;
-    private String time;
+    private Long time;
     private Double latitude;
     private Double longitude;
 
-    private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("HH:mm")
-                    .withZone(ZoneId.systemDefault());
 
     public static EarthquakeDTO fromEntity(Earthquake eq) {
         return new EarthquakeDTO(
@@ -34,7 +31,7 @@ public class EarthquakeDTO {
                 eq.getPlace(),
                 eq.getMagnitude(),
                 eq.getMagType(),
-                eq.getTime() != null ? formatter.format(Instant.ofEpochMilli(eq.getTime())) : null,
+                eq.getTime(),
                 eq.getLatitude(),
                 eq.getLongitude()
         );
