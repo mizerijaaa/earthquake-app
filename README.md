@@ -99,7 +99,7 @@ Note: `EarthquakeServiceIntegrationTest.fetchAndStore_shouldPopulateDatabase()` 
 
 ## Assumptions made
 
-- **Time format**: timestamps are handled as **epoch milliseconds** (as returned by USGS).
+- **Time format**: timestamps are handled as **epoch milliseconds** (as returned by USGS) and formatted on the frontend for display.
 - **Deduplication strategy**: on every fetch, the backend **deletes all existing records** and then inserts the newly fetched parsed records to avoid duplicates.
 - **Null/missing GeoJSON fields**:
   - entries missing critical fields (`mag`, `time`) are **skipped**
@@ -112,7 +112,5 @@ Note: `EarthquakeServiceIntegrationTest.fetchAndStore_shouldPopulateDatabase()` 
 
 - Added support for deleting a specific earthquake record (`DELETE /api/earthquakes/{id}`)
 - Implemented map visualization of earthquake locations using Leaflet
-- Formatted earthquake time for cleaner display in the frontend
 - Improved the user interface with custom styling and better visual consistency
 - Configured H2 in-memory database for isolated testing (`src/test/resources/application-test.properties`)
-
