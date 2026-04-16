@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mk.codeit.earthquake.exception.ResourceNotFoundException;
 import mk.codeit.earthquake.model.Earthquake;
 import mk.codeit.earthquake.repository.EarthquakeRepository;
 import org.springframework.stereotype.Service;
@@ -110,10 +111,10 @@ public class EarthquakeServiceImpl implements EarthquakeService {
 
     @Override
     public void deleteById(Long id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("Earthquake with id " + id + " not found");
-        }
-        repository.deleteById(id);
+        Earthquake eq = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Earthquake with id " + id + " not found"));
+        repository.delete(eq);
     }
 
 
