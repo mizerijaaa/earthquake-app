@@ -62,7 +62,7 @@ function App() {
         });
 
         earthquakes.forEach((eq) => {
-            if (eq.latitude && eq.longitude) {
+            if (eq.latitude !== null && eq.longitude !== null) {
                 const color = eq.magnitude >= 5 ? "#E24B4A" : eq.magnitude >= 3 ? "#EF9F27" : "#639922";
                 L.circleMarker([eq.latitude, eq.longitude], {
                     radius: Math.max(eq.magnitude * 2.5, 4),
