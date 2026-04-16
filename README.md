@@ -83,6 +83,20 @@ Base path: **`/api/earthquakes`**
 - **Delete a stored record (optional requirement)**
   - `DELETE /api/earthquakes/{id}`
 
+## Testing (H2 in-memory)
+
+Tests run with the Spring profile **`test`** (see `@ActiveProfiles("test")`) and use the H2 configuration in:
+
+- `src/test/resources/application-test.properties`
+
+Run tests from the repository root:
+
+```bash
+./mvnw test
+```
+
+Note: `EarthquakeServiceIntegrationTest.fetchAndStore_shouldPopulateDatabase()` calls the live USGS endpoint, so it requires network access and may fail if the external API is unavailable.
+
 ## Assumptions made
 
 - **Time format**: timestamps are handled as **epoch milliseconds** (as returned by USGS).
