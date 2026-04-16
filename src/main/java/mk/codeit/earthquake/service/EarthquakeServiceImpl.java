@@ -44,6 +44,16 @@ public class EarthquakeServiceImpl implements EarthquakeService {
                     JsonNode props = feature.get("properties");
                     if (props == null) continue;
 
+                    JsonNode geometry = feature.get("geometry");
+                    Double latitude = null;
+                    Double longitude = null;
+
+                    if (geometry != null && geometry.has("coordinates")) {
+                        JsonNode coords = geometry.get("coordinates");
+                        longitude = coords.get(0).asDouble();
+                        latitude = coords.get(1).asDouble();
+                    }
+
                     Double mag = props.has("mag") && !props.get("mag").isNull()
                             ? props.get("mag").asDouble() : null;
                     String place = props.has("place") && !props.get("place").isNull()
@@ -57,13 +67,15 @@ public class EarthquakeServiceImpl implements EarthquakeService {
 
                     if (mag == null || time == null) continue;
 
-                    if (mag > 2.0) {
+                    if (mag != null) {
                         earthquakes.add(Earthquake.builder()
                                 .magnitude(mag)
                                 .place(place)
                                 .title(title)
                                 .magType(magType)
                                 .time(time)
+                                .latitude(latitude)
+                                .longitude(longitude)
                                 .build());
                     }
 
@@ -104,4 +116,6 @@ public class EarthquakeServiceImpl implements EarthquakeService {
         }
         repository.deleteById(id);
     }
+
+
 }

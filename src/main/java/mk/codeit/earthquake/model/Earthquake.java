@@ -17,4 +17,6 @@ public class Earthquake {
     private Double magnitude;
     private String magType;
     private Long time;
+    private Double latitude;
+    private Double longitude;
 }
