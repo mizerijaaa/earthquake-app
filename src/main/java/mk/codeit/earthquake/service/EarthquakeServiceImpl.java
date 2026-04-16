@@ -9,6 +9,7 @@ import mk.codeit.earthquake.model.Earthquake;
 import mk.codeit.earthquake.repository.EarthquakeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class EarthquakeServiceImpl implements EarthquakeService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Transactional
     @Override
     public void fetchAndStore() {
         try {
